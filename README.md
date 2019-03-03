@@ -3,8 +3,7 @@
 [7seg_gif]: https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/7seg.gif?raw=true 
 [flow]: https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/flow.png?raw=true 
  
- 
-# Minecraft HDL 
+# Minecraft HDL - COMPATIBILITY WITH VERSION > 10.X
  
 Minecraft HDL is a digital synthesis flow for minecraft redstone circuits. It is an attempt to use industry standard design tools and methods to generate digital circuits with redstone. 
  
