@@ -89,9 +89,9 @@ public class SynthesiserGUI extends GuiScreen {
 
         if (!folder.exists()) {
             folder.mkdir();
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("Created folder 'verilog_designs'");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("Copy your synthesized JSON files to this directory:");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage(System.getProperty("user.dir") + "\\verilog_designs");
+            Minecraft.getMinecraft().player.sendChatMessage("Created folder 'verilog_designs'");
+            Minecraft.getMinecraft().player.sendChatMessage("Copy your synthesized JSON files to this directory:");
+            Minecraft.getMinecraft().player.sendChatMessage(System.getProperty("user.dir") + "\\verilog_designs");
 
         } else {
             for (File f : folder.listFiles()){
@@ -121,9 +121,9 @@ public class SynthesiserGUI extends GuiScreen {
         this.mc.getTextureManager().bindTexture(new ResourceLocation("minecrafthdl:textures/gui/synthesiser.png"));
         this.drawTexturedModalRect(centerObjectTL(this.window_width, this.width), centerObjectTL(this.window_height, this.height), 0, 0, this.window_width, this.window_height);
 
-        this.fontRendererObj.drawString(
+        this.fontRenderer.drawString(
                 "Synthesiser",
-                (this.width / 2) - (this.fontRendererObj.getStringWidth("Synthesiser") / 2),
+                (this.width / 2) - (this.fontRenderer.getStringWidth("Synthesiser") / 2),
                 (this.height / 2) - 75,
                 0
         );
@@ -141,8 +141,8 @@ public class SynthesiserGUI extends GuiScreen {
             else  files_shown++;
             String file_name = this.file_names.get(i);
             int max_width = this.filebox_right - this.filebox_left - (2 * this.padding);
-            if (this.fontRendererObj.getStringWidth(file_name) > max_width) {
-                file_name = this.fontRendererObj.trimStringToWidth(file_name, max_width - this.fontRendererObj.getStringWidth("...")) + "...";
+            if (this.fontRenderer.getStringWidth(file_name) > max_width) {
+                file_name = this.fontRenderer.trimStringToWidth(file_name, max_width - this.fontRenderer.getStringWidth("...")) + "...";
             }
 
             if (this.selected_file == i){
@@ -157,7 +157,7 @@ public class SynthesiserGUI extends GuiScreen {
 
                 current_height += this.padding;
 
-                this.fontRendererObj.drawString(
+                this.fontRenderer.drawString(
                         file_name,
                         this.filebox_left + this.padding,
                         current_height,
@@ -169,7 +169,7 @@ public class SynthesiserGUI extends GuiScreen {
             } else {
                 current_height += this.padding;
 
-                this.fontRendererObj.drawString(
+                this.fontRenderer.drawString(
                         file_name,
                         this.filebox_left + this.padding,
                         current_height,

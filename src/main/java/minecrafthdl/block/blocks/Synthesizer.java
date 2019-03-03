@@ -13,6 +13,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -42,13 +43,16 @@ public class Synthesizer extends BasicBlock {
 
     public Synthesizer(String unlocalizedName) {
         super(unlocalizedName);
+        this.setRegistryName(unlocalizedName);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, false));
         this.setTickRandomly(true);
         System.out.println("hello");
     }
 
+
+
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote){
             playerIn.openGui(MinecraftHDL.instance, MinecraftHDLGuiHandler.SYNTHESISER_GUI_ID, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
         }
@@ -56,9 +60,8 @@ public class Synthesizer extends BasicBlock {
         return true;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if(!worldIn.isRemote) {
             if(!state.getValue(TRIGGERED)){
                 if (worldIn.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0) {
@@ -108,9 +111,11 @@ public class Synthesizer extends BasicBlock {
                 }
             }
 
-            worldIn.notifyNeighborsOfStateChange(pos, this);
+            worldIn.notifyNeighborsOfStateChange(pos, this,true);
         }
     }
+
+
 
     private void synth_gen(World worldIn, BlockPos pos){
         try {
@@ -125,7 +130,7 @@ public class Synthesizer extends BasicBlock {
             this.p_check = pos;
 
         } catch (Exception e){
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("An error occurred while generating the circuit, check the logs! Sorry!");
+            Minecraft.getMinecraft().player.sendChatMessage("An error occurred while generating the circuit, check the logs! Sorry!");
             e.printStackTrace();
         }
     }
